@@ -1,0 +1,11 @@
+import = [
+  "~/.config/alacritty/catppuccin-macchiato.toml"
+]
+
+[window]
+decorations = "None"
+opacity = 0.9
+
+[font]
+normal = { family = "monospace", style = "Regular" }
+size = 11.25
