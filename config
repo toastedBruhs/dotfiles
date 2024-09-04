@@ -1,0 +1,45 @@
+general {
+	output_format = "i3bar"
+	colors = true
+	color_good = "#a6d189"
+	color_degraded = "#ef9f76"
+	color_bad = "#e78284"
+	interval = 5
+}
+
+order += "volume master"
+order += "disk /"
+order += "wireless wlan0"
+order += "memory"
+order += "cpu_usage"
+order += "time"
+
+volume master {
+	format = "♪: %volume"
+	format_muted = "♪: muted (%volume)"
+	device = "pulse"
+}
+
+disk "/" {
+	format = "Storage: %used / %total (%percentage_used)"
+}
+
+wireless wlan0 {
+	format_up = "IP: %ip, %quality on %essid"
+	format_down = "WiFi is down"
+}
+
+memory {
+	format = "Mem: %used / %total"
+	threshold_degraded = 10%
+	format_degraded = "Low Mem: %used / %total"
+}
+
+cpu_usage {
+	format = "CPU0: %cpu0 CPU1: %cpu1 CPU2: %cpu2 CPU3: %cpu3"
+}
+
+time {
+	format = "%Y-%m-%d %H:%M:%S"
+}
+
