@@ -1,0 +1,12 @@
+[general]
+import = [
+	"~/.config/alacritty/catppuccin-frappe.toml"
+]
+
+[window]
+opacity = 0.6
+blur = true
+
+[font]
+normal = { family = "Monofur Nerd Font", style = "Regular" }
+size = 13.25
