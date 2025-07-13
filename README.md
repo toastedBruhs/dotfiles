@@ -1,2 +1,1 @@
-FILE LOCATIONS:
-Alacritty - ~/.config/alacritty/
+me when dotfiles
