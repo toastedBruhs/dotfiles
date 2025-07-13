@@ -1,0 +1,264 @@
+{
+    "layer": "top",
+    "position": "top",
+    "margin-left": 10,
+    "margin-right": 10,
+    "margin-top": 10,
+    "margin-bottom": 2,
+    "height": 30,
+
+    "modules-left": [
+        "custom/notification",
+        "sway/workspaces",
+        "tray"
+    ],
+    "modules-center": [
+        "custom/music-symbol",
+        "group/music"
+    ],
+    "modules-right": [
+        "bluetooth",
+        "group/audio",
+        "group/wifi",
+        "custom/separator",
+        "group/light",
+        "battery",
+        "group/clock-date",
+        "custom/power"
+    ],
+
+    "sway/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "default": "",
+            "focused": ""
+        }
+    },
+    
+    "bluetooth": {
+	      // "controller": "controller1", // specify the alias of the controller if there are more than 1 on the system
+	      "format": "󰂯",
+	      "format-disabled": "󰂲", // an empty format will hide the module
+	      "format-connected": "󰂱",
+	      "tooltip-format": "{controller_alias}\t{controller_address}",
+	      "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+	      "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+	      "on-click": "exec alacritty bluetuith"
+    },
+
+    "group/light": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 500,
+            "children-class": "light-drawer",
+            "transition-left-to-right": true
+        },
+        "modules": [
+            "backlight",
+            "backlight/slider"
+        ]
+    },
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{icon}",
+        "format-icons": ["󰃞", "󰃝", "󰃟", "󰃠"],
+        "tooltip-format": "Brightness // {percent}%"
+    },
+    "backlight/slider": {
+        "device": "intel_backlight",
+        "min": 0,
+        "max": 100,
+        "orientation": "horizontal"
+    },
+    
+    "group/audio": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 500,
+            "children-class": "audio-drawer",
+            "transition-left-to-right": true
+        },
+        "modules": [
+            "pulseaudio",
+            "pulseaudio/slider"
+        ]
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "",
+        "format-icons": ["", ""],
+        "tooltip-format": "{desc}",
+        "on-click": "pavucontrol"
+    },
+    "pulseaudio/slider": {
+        "min": 0,
+        "max": 100,
+        "orientation": "horizontal"
+    },
+    
+    "group/wifi": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 500,
+            "children-class": "network-drawer",
+            "transition-left-to-right": true
+        },
+        "modules": [
+            "network",
+            "custom/essid"
+        ]
+    },
+    "network": {
+        "interface": "wlan0",
+        "format": "{icon}",
+        "format-disconnected": "󰤭",
+        "format-icons": ["󰤟", "󰤢", "󰤥", "󰤨"],
+        "tooltip-format": "{signalStrength}% on {essid}"
+        },
+    "custom/essid": {
+        "format": "{}",
+        "exec": "nmcli c | grep wlan0 | awk '{print ($1)}'",
+        "interval": 5,
+        "tooltip": false
+    },
+    
+    "group/clock-date": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 500,
+            "children-class": "clock-drawer",
+            "transition-left-to-right": true
+        },
+        "modules": [
+            "group/clock",
+            "custom/date"
+        ]
+    },
+    "group/clock": {
+        "orientation": "inherit",
+        "modules": [
+            "custom/clock-hours",
+            "custom/clock-separator",
+            "custom/clock-minutes"
+        ]
+    },
+    "custom/clock-hours": {
+        "format": "{}",
+        "exec": "date '+%H'",
+        "tooltip": false,
+        "interval": 1
+    },
+    "custom/clock-separator": {
+        "format": "󰇙",
+        "tooltip": false
+    },
+    "custom/clock-minutes": {
+        "format": "{}",
+        "exec": "date '+%M'",
+        "tooltip": false,
+        "interval": 1
+    },
+    "custom/date": {
+        "format": "{}",
+        "exec": "date '+%m/%d'",
+        "tooltip": false,
+        "interval": 30
+    },
+    
+    "group/music": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 500,
+            "children-class": "music-drawer",
+            "transition-left-to-right": true
+        },
+        "modules": [
+            "custom/music",
+            "custom/prev",
+            "custom/play-pause",
+            "custom/next"
+        ]
+    },
+    "custom/music-symbol": {
+        "format": " ",
+        "tooltip": false
+    },
+    "custom/music": {
+        "format": "{}",
+        "escape": true,
+        "interval": 5,
+        "tooltip": false,
+        "exec": "playerctl metadata --format='{{ title }}'",
+        "max-length": 50
+    },
+    "custom/prev": {
+        "format": "",
+        "on-click": "playerctl previous",
+        "tooltip": false
+    },
+    "custom/play-pause": {
+        "format": "",
+        "on-click": "playerctl play-pause",
+        "tooltip": false
+    },
+    "custom/next": {
+        "format": "",
+        "on-click": "playerctl next",
+        "tooltip": false
+    },
+    
+    "battery": {
+        "interval": 30,
+        "states": {
+            "warning": 20,
+            "critical": 10
+        },
+        "tooltip-format": "{capacity}% charged",
+        "format": "{icon}",
+        "format-charging": "󰠠",
+        "format-plugged": "󰠠",
+        "format-icons": [
+            "󰄰",
+            "󰪞",
+            "󰪟",
+            "󰪠",
+            "󰪡",
+            "󰪢",
+            "󰪣",
+            "󰪤",
+            "󰪥"
+        ]
+    },
+    
+    "tray": {
+        "icon-size": 21,
+        "spacing": 10
+    },
+    
+    "custom/notification": {
+        "tooltip": false,
+        "format": " ",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
+    },
+    
+    "custom/lock": {
+        "tooltip": false,
+        "on-click": "hyprlock &",
+        "format": " "
+    },
+    
+    "custom/power": {
+        "tooltip": false,
+        "on-click": "wlogout &",
+        "format": "⏻ "
+    },
+
+    "custom/separator": {
+        "format": "",
+        "tooltip": false
+    }
+}
